@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap');
+
+html {
+    font-family: 'Abyssinica SIL', serif;
+}
+
+body {
+    margin: 0;
+    background-color: #1a1a1a;
+}

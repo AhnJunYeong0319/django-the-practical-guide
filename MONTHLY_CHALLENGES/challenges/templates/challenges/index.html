@@ -1,0 +1,22 @@
+
+{% extends "base.html"%}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "challenges/challenges.css" %}"> <!-- the tag only available when loaded static-->
+    <link rel="stylesheet" href="{% static "challenges/includes/header.css" %}"> <!-- the tag only available when loaded static-->
+{% endblock %}
+
+    {% block page_title %}
+    All Challenges
+    {% endblock %}
+
+    {% block content %}
+    {% include "./includes/header.html"%} <!-- fetch code snippet-->
+    <ul>
+        {% for month in months %}
+        <li><a href = "{% url "month-challenge" month %}">{{ month|title }}</a></li>
+        <!-- url tag is equivalent to reverse function in python-->
+        {% endfor %}
+    </ul>
+    {% endblock %}
