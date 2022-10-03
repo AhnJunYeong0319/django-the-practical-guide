@@ -16,8 +16,6 @@ class Country(models.Model):
     class Meta:
         verbose_name_plural = "Countries" # if do not set this option, the admin page will show this data with the name of countrys, which is automatically created by Django.
 
-
-
 class Address(models.Model):
     street = models.CharField(max_length = 80)
     postal_code = models.CharField(max_length = 5)
