@@ -126,10 +126,24 @@ class SingleReviewView(DetailView):
     template_name = "reviews/single_review.html"
     model = Review
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        loaded_review = self.object
+        request = self.request
+        favorite_id = request.session.get("favorite_review") # indexing is not good way cuz in this session, we don't know whether this key has been created or not - could be still empty -> invalid key error.
+        context["is_favorite"] = favorite_id == str(loaded_review.id)
+        return context
+
     # in urls.py, we passed <int:pk> to this function. So Django automatically find the single piece of data
     # correspondes to that key and exposes to our template, although single_review file is trying to use a data from
     # review variable, which is not defined here.
 
     # So if you still want to touch some fields of automatically fetched data,
     # use 'object' variable name. It is created by Django.
-    
+
+class AddFavoriteView(View):
+    def post(self, request):
+        review_id = request.POST["review_id"]
+        fav_review = Review.objects.get(pk = review_id)
+        request.session["favorite_review"] = review_id
+        return HttpResponseRedirect("/reviews/" + review_id)
